@@ -1,0 +1,38 @@
+[package]
+name = "roof"
+version = "0.1.0"
+authors = ["zenoxygen <zenoxygen@protonmail.com>"]
+edition = "2018"
+
+description = "A minimalist, fast and reliable utility to share files."
+homepage = "https://gitlab.com/zenoxygen/roof"
+repository = "https://gitlab.com/zenoxygen/roof"
+
+keywords = ["http", "cli", "file", "upload", "download"]
+categories = ["web-programming::http-client", "command-line-utilities", "network-programming"]
+readme = "README.md"
+license = "MIT"
+
+exclude = [
+	".gitignore",
+	".gitlab-ci.yml",
+]
+
+[dependencies]
+anyhow = "1.0"
+bytes = "0.5"
+clap = "2.33"
+env_logger = "0.7"
+flate2 = "1.0"
+hyper = "0.13"
+indicatif = "0.14"
+log = "0.4"
+reqwest = "0.10"
+tar = "0.4"
+tokio = { version = "0.2", features = ["full"] }
+tokio-codec = "0.1"
+url = "2.1"
+
+[badges]
+gitlab = { repository = "zenoxygen/roof", branch = "master" }
+maintenance = { status = "actively-developed" }
