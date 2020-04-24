@@ -13,10 +13,7 @@ categories = ["web-programming::http-client", "command-line-utilities", "network
 readme = "README.md"
 license = "MIT"
 
-exclude = [
-	".gitignore",
-	".gitlab-ci.yml",
-]
+exclude = [".gitignore", ".gitlab-ci.yml"]
 
 [dependencies]
 anyhow = "1.0"
