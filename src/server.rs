@@ -121,9 +121,11 @@ pub async fn serve_file(
     init_logger();
 
     // Create address to bind to server
-    let addr = format!("{}:{}", ip_addr = ip_addr, port = port)
-        .parse()
-        .unwrap();
+    let ip_port = format!("{}:{}", ip_addr = ip_addr, port = port);
+    let addr = match ip_port.parse() {
+        Ok(addr) => addr,
+        Err(_) => return Err(anyhow!("could not parse IP/port configuration")),
+    };
 
     // Create counter
     let counter = Arc::new(AtomicUsize::new(count));
@@ -138,9 +140,11 @@ pub async fn serve_file(
         file_path = tarball_path;
     }
 
-    // Display status
+    // Get file name
     let file_name = Path::new(&file_path).file_name().unwrap().to_str().unwrap();
-    info!("Serving on http://{}:{}/{}", ip_addr, port, file_name);
+
+    // Clone file path
+    let file_path = file_path.clone();
 
     // The closure inside `make_service_fn` is run for each connection,
     // creating service to handle requests for that specific connection
@@ -165,11 +169,17 @@ pub async fn serve_file(
     });
 
     // Create server bound on provided address
-    let server = Server::bind(&addr).serve(service);
+    let server = match Server::try_bind(&addr) {
+        Ok(server) => server,
+        Err(_) => return Err(anyhow!("could not bind server to address provided")),
+    };
+
+    // Display status
+    info!("Serving on http://{}:{}/{}", ip_addr, port, file_name);
 
     // Wait for server to complete serving
-    if server.await.is_err() {
-        return Err(anyhow!("server had an error while serving file"));
+    if server.serve(service).await.is_err() {
+        return Err(anyhow!("server failed while serving file"));
     }
 
     Ok(())
