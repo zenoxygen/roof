@@ -19,7 +19,6 @@
 // SOFTWARE.
 
 extern crate anyhow;
-extern crate bytes;
 extern crate clap;
 extern crate env_logger;
 extern crate flate2;
