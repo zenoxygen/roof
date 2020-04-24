@@ -50,13 +50,13 @@ async fn fetch_data(url: Url) -> Result<(), anyhow::Error> {
 
     // Check if path already exists
     if path.exists() {
-        return Err(anyhow!("file already exists in this directory"));
+        return Err(anyhow!("path '{}' already exists", path.to_str().unwrap()));
     }
 
     // Request URL
     let mut req = match reqwest::get(url.as_str()).await {
         Ok(req) => req,
-        Err(_) => return Err(anyhow!("could not send request for url")),
+        Err(_) => return Err(anyhow!("could not send request for URL")),
     };
 
     // Get file size
@@ -68,7 +68,7 @@ async fn fetch_data(url: Url) -> Result<(), anyhow::Error> {
                 .and_then(|len| len.parse().ok())
                 .unwrap_or(0)
         } else {
-            return Err(anyhow!("could not download file ({})", req.status(),));
+            return Err(anyhow!("could not download file ({})", req.status()));
         }
     };
 
