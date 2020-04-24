@@ -98,13 +98,13 @@ async fn handle_request(req: Request<Body>, file_path: PathBuf) -> Result<Respon
 }
 
 /// Compress directory.
-fn compress_directory(dir_path: &PathBuf, tar_name: &str) -> Result<(), std::io::Error> {
-    // Create compressed tar
-    let tar_gz = std::fs::File::create(tar_name)?;
+fn compress_dir(dir_path: &PathBuf, tarball_path: &str) -> Result<(), std::io::Error> {
+    // Create tarball
+    let tar_gz = std::fs::File::create(tarball_path)?;
     let enc = GzEncoder::new(tar_gz, Compression::default());
-    let mut tar = tar::Builder::new(enc);
-    // Add directory content into tar
-    tar.append_dir_all(dir_path, dir_path)?;
+    let mut tarball = tar::Builder::new(enc);
+    // Add directory content into tarball
+    tarball.append_dir_all(dir_path, dir_path)?;
 
     Ok(())
 }
@@ -128,14 +128,14 @@ pub async fn serve_file(
     // Create counter
     let counter = Arc::new(AtomicUsize::new(count));
 
-    // Compress directory
+    // Compress directory into tarball
     if file_path.is_dir() {
-        // Create tar path based on file name
-        let mut tar_path = file_path.clone();
-        tar_path.set_extension("tar.gz");
-        compress_directory(&file_path, tar_path.as_path().to_str().unwrap())?;
-        // Replace file path with tar path
-        file_path = tar_path;
+        let mut tarball_path = file_path.clone();
+        tarball_path.set_extension("tar.gz");
+        if compress_dir(&file_path, tarball_path.as_path().to_str().unwrap()).is_err() {
+            return Err(anyhow!("could not compress directory into tarball"));
+        }
+        file_path = tarball_path;
     }
 
     // Display status
