@@ -29,7 +29,6 @@ use hyper::{header, Body, Method, Request, Response, Server, StatusCode};
 use tokio::fs::File;
 use tokio::io::AsyncReadExt;
 
-use std::fs::remove_file;
 use std::path::{Path, PathBuf};
 use std::sync::{
     atomic::{AtomicUsize, Ordering},
@@ -73,10 +72,6 @@ async fn send_file(file_path: PathBuf) -> Result<Response<Body>> {
             // Get file metadata
             let meta = file.metadata().await?;
             let len = meta.len();
-            // Remove tar if exists
-            if file_path.extension() != None && file_path.extension().unwrap() == "tar.gz" {
-                remove_file(&file_path)?;
-            }
             // Display status
             let file_name = Path::new(&file_path).file_name().unwrap().to_str().unwrap();
             info!("Sending {}", file_name);
