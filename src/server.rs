@@ -18,9 +18,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-use crate::log::info;
-use crate::logger::init_logger;
-
 use anyhow::{anyhow, Result};
 use flate2::write::GzEncoder;
 use flate2::Compression;
@@ -80,7 +77,7 @@ async fn send_file(file_path: PathBuf) -> Result<Response<Body>> {
             let len = meta.len();
             // Display status
             let file_name = Path::new(&file_path).file_name().unwrap().to_str().unwrap();
-            info!("Sending {}", file_name);
+            println!("Sending {}", file_name);
             // Send file
             return Ok(make_status_ok(buf, len));
         }
@@ -123,9 +120,6 @@ pub async fn serve_file(
     port: &str,
     count: usize,
 ) -> Result<()> {
-    // Init logger
-    init_logger();
-
     // Create address to bind to server
     let ip_port = format!("{}:{}", ip_addr = ip_addr, port = port);
     let addr = match ip_port.parse() {
@@ -181,7 +175,7 @@ pub async fn serve_file(
     };
 
     // Display status
-    info!("Serving on http://{}:{}/{}", ip_addr, port, file_name);
+    println!("Serving on http://{}:{}/{}", ip_addr, port, file_name);
 
     // Wait for server to complete serving
     if server.serve(service).await.is_err() {

@@ -18,11 +18,9 @@ exclude = [".gitignore", ".gitlab-ci.yml"]
 [dependencies]
 anyhow = "1.0"
 clap = "2.33"
-env_logger = "0.7"
 flate2 = "1.0"
 hyper = "0.13"
 indicatif = "0.14"
-log = "0.4"
 reqwest = "0.10"
 tar = "0.4"
 tokio = { version = "0.2", features = ["full"] }

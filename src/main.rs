@@ -20,18 +20,15 @@
 
 extern crate anyhow;
 extern crate clap;
-extern crate env_logger;
 extern crate flate2;
 extern crate hyper;
 extern crate indicatif;
-extern crate log;
 extern crate tar;
 extern crate tokio;
 extern crate url;
 
 mod args;
 mod client;
-mod logger;
 mod server;
 
 use crate::args::parse_args;
