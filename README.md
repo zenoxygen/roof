@@ -18,8 +18,6 @@ The download mode can be used to obtain a file from a remote pair.
 ## Usage
 
 ```
-$> ./roof --help
-
 roof 0.2.0
 zenoxygen <zenoxygen@protonmail.com>
 A minimalist, fast and reliable utility to share files.
@@ -46,8 +44,8 @@ ARGS:
 ### Serve/download a file
 
 ```
-$> ./roof myfile.txt
-[2020-04-20T12:00:00Z] Serving on http://127.0.0.1:8080/myfile.txt
+./roof myfile.txt
+Serving on http://127.0.0.1:8080/myfile.txt
 
 $> ./roof http://127.0.0.1:8080/myfile.txt
 Downloading myfile.txt
@@ -57,8 +55,8 @@ Downloading myfile.txt
 ### Serve/download a directory
 
 ```
-$> ./roof mydir
-[2020-04-20T12:00:00Z] Serving on http://127.0.0.1:8080/mydir.tar.gz
+./roof mydir
+Serving on http://127.0.0.1:8080/mydir.tar.gz
 
 $> ./roof http://127.0.0.1:8080/mydir.tar.gz
 Downloading mydir.tar.gz
@@ -69,7 +67,7 @@ Downloading mydir.tar.gz
 
 ```
 $> ./roof -s
-[2020-04-20T12:00:00Z] Serving on http://127.0.0.1:8080/roof
+Serving on http://127.0.0.1:8080/roof
 ```
 
 ## Documentation
