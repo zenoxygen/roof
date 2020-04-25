@@ -78,9 +78,7 @@ fn run(args: clap::ArgMatches) -> Result<()> {
     // Serve itself
     } else {
         let exe_path = get_exe_path()?;
-        let file_name = Path::new(&exe_path).file_name().unwrap().to_str().unwrap();
-        let file_path = PathBuf::from(file_name);
-        serve_file(file_path, &ip_addr, &port, count)?;
+        serve_file(exe_path, &ip_addr, &port, count)?;
     }
 
     Ok(())
