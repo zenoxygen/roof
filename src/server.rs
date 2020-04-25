@@ -160,6 +160,7 @@ pub async fn serve_file(
                 let count = counter.fetch_sub(1, Ordering::AcqRel);
                 // Exit success when reached maximum number of requests
                 if count == 0 {
+                    println!("Shutting down gracefully.");
                     std::process::exit(0);
                 }
                 // Handle incoming request
