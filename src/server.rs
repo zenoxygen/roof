@@ -63,6 +63,12 @@ fn make_status_ok(buf: Vec<u8>, len: u64) -> Response<Body> {
         .unwrap()
 }
 
+/// Make file name.
+fn make_file_name(file_path: &PathBuf) -> String {
+    let file_name = Path::new(&file_path).file_name().unwrap().to_str().unwrap();
+    file_name.replace(|c: char| c.is_whitespace(), "_")
+}
+
 /// Send file.
 async fn send_file(file_path: PathBuf) -> Result<Response<Body>> {
     // Read file entirely into memory
@@ -88,8 +94,8 @@ async fn send_file(file_path: PathBuf) -> Result<Response<Body>> {
 
 /// Handle request.
 async fn handle_request(req: Request<Body>, file_path: PathBuf) -> Result<Response<Body>> {
-    // Convert file path to string
-    let file_name = Path::new(&file_path).file_name().unwrap().to_str().unwrap();
+    // Make file name
+    let file_name = make_file_name(&file_path);
     // Check if requested file match with served file
     match (req.method(), req.uri().path().trim_start_matches('/')) {
         (&Method::GET, name) if name == file_name => send_file(file_path).await,
@@ -140,8 +146,8 @@ pub async fn serve_file(
         file_path = tarball_path;
     }
 
-    // Get file name
-    let file_name = Path::new(&file_path).file_name().unwrap().to_str().unwrap();
+    // Make file name
+    let file_name = make_file_name(&file_path);
 
     // Clone file path
     let file_path = file_path.clone();
