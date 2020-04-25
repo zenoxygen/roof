@@ -20,7 +20,7 @@ The download mode can be used to obtain a file from a remote pair.
 ```
 $> ./roof --help
 
-roof 0.1.0
+roof 0.2.0
 zenoxygen <zenoxygen@protonmail.com>
 A minimalist, fast and reliable utility to share files.
 

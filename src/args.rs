@@ -26,7 +26,7 @@ use clap::{App, Arg};
 pub fn parse_args<'a>() -> clap::ArgMatches<'a> {
     let args_conflicts = ["file"];
     App::new("roof")
-        .version("0.1.0")
+        .version("0.2.0")
         .about("A minimalist, fast and reliable utility to share files.")
         .author("zenoxygen <zenoxygen@protonmail.com>")
         .arg(
