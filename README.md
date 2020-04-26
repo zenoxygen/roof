@@ -44,7 +44,7 @@ ARGS:
 ### Serve/download a file
 
 ```
-./roof myfile.txt
+$> ./roof myfile.txt
 Serving on http://127.0.0.1:8080/myfile.txt
 
 $> ./roof http://127.0.0.1:8080/myfile.txt
@@ -55,7 +55,7 @@ Downloading myfile.txt
 ### Serve/download a directory
 
 ```
-./roof mydir
+$> ./roof mydir
 Serving on http://127.0.0.1:8080/mydir.tar.gz
 
 $> ./roof http://127.0.0.1:8080/mydir.tar.gz
