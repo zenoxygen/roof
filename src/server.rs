@@ -76,7 +76,8 @@ async fn send_file(file_path: PathBuf) -> Result<Response<Body>> {
             let meta = file.metadata().await?;
             let len = meta.len();
             // Display status
-            let file_name = Path::new(&file_path).file_name().unwrap().to_str().unwrap();
+            // let file_name = Path::new(&file_path).file_name().unwrap().to_str().unwrap();
+            let file_name = make_file_name(&file_path);
             println!("Sending {}", file_name);
             // Send file
             return Ok(make_status_ok(buf, len));
