@@ -18,7 +18,7 @@ The download mode can be used to obtain a file from a remote pair.
 ## Usage
 
 ```
-roof 0.5.0
+roof 0.6.0
 zenoxygen <zenoxygen@protonmail.com>
 A minimalist, fast and reliable utility to share files.
 
